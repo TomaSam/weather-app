@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 //import Forecast from './Forecast';
 
 const one = 'https://api.openweathermap.org/data/2.5/forecast?q=';
-const two =  '&units=metric&appid=11034ede81a0d91d8e891e1f44ae9d82';
+const two =  '&units=metric&appid=';
 let city = '';
 
 class Search extends Component {

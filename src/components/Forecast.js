@@ -3,7 +3,7 @@ import '../App.css';
 import Search from './Search';
 
 const one = 'https://api.openweathermap.org/data/2.5/forecast?q=';
-const two =  '&units=metric&appid=11034ede81a0d91d8e891e1f44ae9d82';
+const two =  '&units=metric&appid=';
 const city = 'Paris';
 const API = one + city + two;
 
