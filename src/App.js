@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div>
         <Header />
-        {/* <Search /> */}
+        {/* <Search  /> */}
         <Forecast />
         <Footer />
       </div>

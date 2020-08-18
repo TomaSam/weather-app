@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-//import Search from './Search';
+import Search from './Search';
 
 const one = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const two =  '&units=metric&appid=11034ede81a0d91d8e891e1f44ae9d82';
@@ -51,21 +51,22 @@ class Forecast extends Component {
     return iconUrl1 + icon + iconUrl2;
   }
 
-  // search = () => {
-  //   this.setState({
-  //           isLoading: true,
-  //           item: this.props.result,
-  //           list: this.props.result.list  
-  //         });
-  //         console.log(this.props.result);
-  //         console.log(this.props.result.list);
+  search = (result) => {
+    this.setState({
+            isLoading: true,
+            result: result,
+            list: result.list  
+          });
+          console.log(result);
+          console.log(result.list);
           
-  // }
+  }
   
    render() {
      const { isLoading, error, result, list } = this.state; 
       console.log(result);
 
+           
       if (error) {
         return <div>Error: {error.message}</div>;
       } else if (!isLoading) {
@@ -73,43 +74,40 @@ class Forecast extends Component {
       } else {
         return (   
           <div>
-            {/* <Search search={this.result} />       */}
-          <div className="forecast-container">
-
-            <div className="card">
-                <div className="card-header">
-                  {result.city.name}, {result.city.country}
-                </div>
-          
-                <div className="card-body">
-                  {list.map(e => 
-                <div className="card" key={e.dt}>
-                  <h5 className="card-header">{e.dt_txt}</h5>
-
-                    <div className="card-content">
-                     
-                      <img src = {this.getIconUrl(e.weather.map(d => d.icon))} className="card-img" alt=""></img>
-                      
-                      <div className="card-body"> 
-                        <ul className="list-group list-group-flush">
-                          <li className="list-group-item">Temperature: {e.main.temp} &#8451;</li>
-                          <li className="list-group-item">Weather description: {e.weather.map(d => d.description)}</li>
-                          <li className="list-group-item">Wind speed: {e.wind.speed} m/s, wind direction: {this.getCardinalDirection(e.wind.deg)}</li>
-                        </ul> 
-                      </div>
-
+           <Search search={this.search} />
+            <div className="forecast-container">
+                <div className="card">
+                    <div className="card-header">
+                      {result.city.name}, {result.city.country}
                     </div>
+              
+                    <div className="card-body">
+                      {list.map(e => 
+                    <div className="card" key={e.dt}>
+                      <h5 className="card-header">{e.dt_txt}</h5>
 
-                </div>
-                  )}
-                </div>
+                        <div className="card-content">
+                        
+                          <img src = {this.getIconUrl(e.weather.map(d => d.icon))} className="card-img" alt=""></img>
+                          
+                          <div className="card-body"> 
+                            <ul className="list-group list-group-flush">
+                              <li className="list-group-item">Temperature: {e.main.temp} &#8451;</li>
+                              <li className="list-group-item">Weather description: {e.weather.map(d => d.description)}</li>
+                              <li className="list-group-item">Wind speed: {e.wind.speed} m/s, wind direction: {this.getCardinalDirection(e.wind.deg)}</li>
+                            </ul> 
+                          </div>
 
+                        </div>
+                    </div>
+                      )}
+                    </div>
+                </div>
             </div>
-
-          </div>   
+            
           </div>
         )      
-   }
+      }
   }
 
 }

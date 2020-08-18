@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Forecast from './Forecast';
+//import Forecast from './Forecast';
 
 const one = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const two =  '&units=metric&appid=11034ede81a0d91d8e891e1f44ae9d82';
@@ -39,8 +39,8 @@ class Search extends Component {
         });
         console.log(response);
         console.log(response.list);
-        }
-        )       
+        this.props.search(response);
+        })       
     }
 
     render() {
@@ -56,7 +56,7 @@ class Search extends Component {
                         <button type="submit" className="btn btn-secondary search-button">Search</button>
                     </form>       
                 </div>
-                <Forecast search={this.state.result} />
+                {/* <Forecast search={this.state.result} /> */}
             </div>
         )
  
