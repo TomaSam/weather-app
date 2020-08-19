@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import '../App.css';
 import Search from './Search';
-
-const one = 'https://api.openweathermap.org/data/2.5/forecast?q=';
-const two =  '&units=metric&appid=';
-const city = 'Paris';
-const API = one + city + two;
-
+import axios from 'axios';
+ 
 class Forecast extends Component {
   constructor(props) {
     super(props);
@@ -15,21 +11,60 @@ class Forecast extends Component {
       error: null,
       isLoading: false,
       result: {}
-    };
+    } 
   }
 
   componentDidMount() {
+    
+    this.getCurrentLocation();
+  
+  }
+
+  getCurrentLocation() {
+    var city = ''; 
+    // var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+    var targetUrl = 'https://api.ipgeolocation.io/ipgeo?apiKey=c8428e67e74c44d4b109e061f5751dd5';
+        // fetch(targetUrl)
+        axios.get(targetUrl)
+        // .then(response=>response.json())
+          .then(response => {
+            console.log(response);
+            city = response.data.city;
+            console.log(city);
+            if(typeof city !== "undefined") {
+              this.getCurrentWeather(city);
+            }
+            
+            // return location;
+            
+          })
+          .catch(e => {
+            console.log(e);
+            // return e;
+          });
+          
+  }
+
+  getCurrentWeather(city) {
+    //city = {this.getCurrentLocation};
+
+
+    console.log(city);
+    const one = 'https://api.openweathermap.org/data/2.5/forecast?q=';
+    const two =  '&units=metric&appid=9e4a17e4c70309cd53b8dc8bfe8cdd96';
+    const API = one + city + two;
+
     fetch(API)
-        .then(response => response.json())
+    // .then(response=>response.json())
+    axios.get(API)
         .then((response) => {
             console.log(response);
             this.setState({
               isLoading: true,
-              result: response,
-              list: response.list  
+              result: response.data,
+              list: response.data.list  
         });
-        console.log(response);
-        console.log(response.list);
+        console.log(response.data);
         },
         (error) => {
             this.setState({
@@ -37,7 +72,7 @@ class Forecast extends Component {
             error
             });
         }
-        )       
+        );       
   }
 
   getCardinalDirection(angle) {
@@ -74,7 +109,21 @@ class Forecast extends Component {
       } else {
         return (   
           <div>
-           <Search search={this.search} />
+
+            <div className="view intro-2">
+                <div className="full-bg-img">
+                  <div className="mask rgba-black-strong flex-center">
+                    <div className="container">
+                      <div className="text-light text-center header-text">
+                        <h3>Current weather conditions and detailed weather forecast for all cities in the world on WEATHER FORECAST!</h3>
+                      <Search search={this.search} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+           
             <div className="forecast-container">
                 <div className="card">
                     <div className="card-header">

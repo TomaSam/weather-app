@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 //import Forecast from './Forecast';
 
 const one = 'https://api.openweathermap.org/data/2.5/forecast?q=';
-const two =  '&units=metric&appid=';
+const two =  '&units=metric&appid=9e4a17e4c70309cd53b8dc8bfe8cdd96';
 let city = '';
 
 class Search extends Component {
@@ -47,17 +47,14 @@ class Search extends Component {
         console.log(this.state.result);
        
         return (
-            <div>
                 <div className="search">
-                    <form onSubmit={this.submitForm} className="">
-                        <input name="input" className="form-control input-city" type="search" 
+                    <form onSubmit={this.submitForm} className="form-inline my-2 my-lg-0">
+                        <input name="input" className="form-control mr-sm-2" type="search" 
                         placeholder="Search by city..." aria-label="Search"
                         onChange={this.inputChange} />
-                        <button type="submit" className="btn btn-secondary search-button">Search</button>
+                        <button type="submit" className="btn btn-outline-secondary my-2 my-sm-0">Search</button>
                     </form>       
                 </div>
-                {/* <Forecast search={this.state.result} /> */}
-            </div>
         )
  
     }
